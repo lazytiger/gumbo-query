@@ -1,13 +1,13 @@
 /***************************************************************************
  * 
- * Copyright (c) 2010 babeltime.com, Inc. All Rights Reserved
+ * Copyright (c) 2010 baimashi.com, Inc. All Rights Reserved
  * $Id$
  * 
  **************************************************************************/
 
 /**
  * @file $HeadURL$
- * @author $Author$(hoping@babeltime.com)
+ * @author $Author$(hoping@baimashi.com)
  * @date $Date$
  * @version $Revision$
  * @brief 
