@@ -14,27 +14,33 @@
  *  
  **/
 
-#ifndef DOCUMENT_H_
-#define DOCUMENT_H_
+#ifndef SELECTION_H_
+#define SELECTION_H_
 
-class CSelection;
+#include <vector>
+#include "Object.h"
 
-class CDocument: public CSelection
+class CSelection: public CObject
 {
 	public:
 
-		CDocument();
+		CSelection(GumboNode* apNode);
 
-		virtual ~CDocument();
+		CSelection(std::vector<GumboNode*> apNodes);
 
-		std::vector<GumboNode*> find(std::string aSelector);
+		virtual ~CSelection();
 
 	public:
 
-	private:
+		CSelection* find(std::string aSelector);
 
+		std::vector<GumboNode*> nodes();
+
+	protected:
+
+		std::vector<GumboNode*> mpNodes;
 };
 
-#endif /* DOCUMENT_H_ */
+#endif /* SELECTION_H_ */
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 noet: */

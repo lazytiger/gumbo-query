@@ -20,8 +20,9 @@
 #include <gumbo.h>
 #include <string>
 #include <vector>
+#include "Object.h"
 
-class CSelector
+class CSelector: public CObject
 {
 
 	public:
@@ -82,25 +83,10 @@ class CSelector
 
 		std::vector<GumboNode*> matchAll(GumboNode* apNode);
 
-		void retain()
-		{
-			mReferences++;
-		}
-
-		void release()
-		{
-			mReferences--;
-			if (mReferences == 0)
-			{
-				delete this;
-			}
-		}
-
 	private:
 
 		void init()
 		{
-			mReferences = 1;
 			mOfType = false;
 			mA = 0;
 			mB = 0;
@@ -111,8 +97,6 @@ class CSelector
 		void matchAllInto(GumboNode* apNode, std::vector<GumboNode*>& nodes);
 
 	private:
-
-		unsigned int mReferences;
 
 		TOperator mOp;
 

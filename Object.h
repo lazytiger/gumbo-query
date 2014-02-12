@@ -1,40 +1,43 @@
 /***************************************************************************
  * 
- * Copyright (c) 2010 baimashi.com, Inc. All Rights Reserved
+ * Copyright (c) 2010 babeltime.com, Inc. All Rights Reserved
  * $Id$
  * 
  **************************************************************************/
 
 /**
  * @file $HeadURL$
- * @author $Author$(hoping@baimashi.com)
+ * @author $Author$(hoping@babeltime.com)
  * @date $Date$
  * @version $Revision$
  * @brief 
  *  
  **/
 
-#ifndef DOCUMENT_H_
-#define DOCUMENT_H_
+#ifndef OBJECT_H_
+#define OBJECT_H_
 
-class CSelection;
-
-class CDocument: public CSelection
+class CObject
 {
 	public:
 
-		CDocument();
+		CObject();
 
-		virtual ~CDocument();
-
-		std::vector<GumboNode*> find(std::string aSelector);
+		virtual ~CObject();
 
 	public:
 
+		virtual void retain();
+
+		virtual void release();
+
+		unsigned int references();
+
 	private:
 
+		unsigned int mReferences;
 };
 
-#endif /* DOCUMENT_H_ */
+#endif /* OBJECT_H_ */
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 noet: */

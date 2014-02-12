@@ -402,7 +402,10 @@ bool CTextSelector::operator ()(GumboNode* apNode)
 		case EOwnContains:
 			text = nodeOwnText(apNode);
 			break;
+		default:
+			return false;
 	}
+	//TODO text tolower
 
 	return text.find(mValue) != std::string::npos;
 }

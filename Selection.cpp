@@ -14,27 +14,17 @@
  *  
  **/
 
-#ifndef DOCUMENT_H_
-#define DOCUMENT_H_
+#include "Selection.h"
 
-class CSelection;
-
-class CDocument: public CSelection
+CSelection::CSelection()
 {
-	public:
+	// TODO Auto-generated constructor stub
+	
+}
 
-		CDocument();
-
-		virtual ~CDocument();
-
-		std::vector<GumboNode*> find(std::string aSelector);
-
-	public:
-
-	private:
-
-};
-
-#endif /* DOCUMENT_H_ */
+CSelection::~CSelection()
+{
+	// TODO Auto-generated destructor stub
+}
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 noet: */
