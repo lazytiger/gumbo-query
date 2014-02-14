@@ -115,6 +115,7 @@ CSelector* CParser::parseSelector()
 
 CSelector* CParser::parseSimpleSelectorSequence()
 {
+	CSelector* ret = NULL;
 	if (mOffset >= mInput.size())
 	{
 		throw error("expected selector, found EOF instead");
@@ -131,10 +132,9 @@ CSelector* CParser::parseSimpleSelectorSequence()
 	}
 	else
 	{
-		return parseTypeSelector();
+		ret = parseTypeSelector();
 	}
 
-	CSelector* ret = NULL;
 	while (mOffset < mInput.size())
 	{
 		char c = mInput[mOffset];
@@ -532,7 +532,7 @@ CSelector* CParser::parseAttributeSelector()
 		throw error("unexpected EOF in attribute selector");
 	}
 
-	std::string op = mInput.substr(mOffset, mOffset + 2);
+	std::string op = mInput.substr(mOffset, 2);
 	if (op[0] == '=')
 	{
 		op = "=";
@@ -759,7 +759,7 @@ std::string CParser::parseString()
 				}
 				offset++;
 			}
-			ret += mInput.substr(start, offset);
+			ret += mInput.substr(start, offset - start);
 		}
 	}
 
@@ -788,7 +788,7 @@ std::string CParser::parseName()
 			{
 				offset++;
 			}
-			ret += mInput.substr(start, offset);
+			ret += mInput.substr(start, offset - start);
 		}
 		else if (c == '\\')
 		{
@@ -871,7 +871,7 @@ std::string CParser::parseEscape()
 
 	if (!hexDigit(c))
 	{
-		std::string ret = mInput.substr(mOffset, mOffset + 1);
+		std::string ret = mInput.substr(start, 1);
 		mOffset += 2;
 		return ret;
 	}

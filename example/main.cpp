@@ -17,6 +17,7 @@
 #include "Document.h"
 #include <iostream>
 #include <fstream>
+#include "Node.h"
 
 int main()
 {
@@ -24,7 +25,7 @@ int main()
 	{
 		CDocument d;
 
-		std::ifstream in("test.html", std::ios::in | std::ios::binary);
+		std::ifstream in("a.html", std::ios::in | std::ios::binary);
 		if (!in)
 		{
 			std::cout << "File test.html not found!\n";
@@ -39,8 +40,14 @@ int main()
 		in.close();
 
 		d.parse(contents.c_str());
-		CSelection c = d.find(".sep");
-		std::cout << c.nodeNum() << std::endl;
+		CSelection c = d.find("div.left-mods-navs > div.left-mods-txt");
+		//CSelection c = d.find("div.left-mods-txt");
+		for (unsigned int i = 0; i < c.nodeNum(); i++)
+		{
+			CNode n = c.nodeAt(i);
+			CNode a = n.parent();
+			std::cout << a.attribute("class") << std::endl;
+		}
 	}
 	catch (const char* message)
 	{
