@@ -16,16 +16,31 @@
 
 #include "Document.h"
 #include <iostream>
+#include <fstream>
 
 int main()
 {
 	try
 	{
 		CDocument d;
-		d.parse("<html><head></head><body>test</body></html>");
-		CSelection* c = d.find("body > a");
-		std::cout << c->nodes().size() << std::endl;
-		c->release();
+
+		std::ifstream in("test.html", std::ios::in | std::ios::binary);
+		if (!in)
+		{
+			std::cout << "File test.html not found!\n";
+			return 1;
+		}
+
+		std::string contents;
+		in.seekg(0, std::ios::end);
+		contents.resize(in.tellg());
+		in.seekg(0, std::ios::beg);
+		in.read(&contents[0], contents.size());
+		in.close();
+
+		d.parse(contents.c_str());
+		CSelection c = d.find(".sep");
+		std::cout << c.nodeNum() << std::endl;
 	}
 	catch (const char* message)
 	{

@@ -306,7 +306,12 @@ bool CAttributeSelector::match(GumboNode* apNode)
 					if (value[i] == ' ' || value[i] == '\t' || value[i] == '\r' || value[i] == '\n'
 							|| value[i] == '\f' || i == value.size() - 1)
 					{
-						std::string segment = value.substr(j, i - j);
+						unsigned int length = i - j;
+						if (i == value.size() - 1)
+						{
+							length++;
+						}
+						std::string segment = value.substr(j, length);
 						if (segment == mValue)
 						{
 							return true;

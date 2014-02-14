@@ -20,8 +20,9 @@
 #include "Object.h"
 #include <vector>
 #include <string>
-#include <vector>
 #include <gumbo.h>
+
+class CNode;
 
 class CSelection: public CObject
 {
@@ -30,19 +31,21 @@ class CSelection: public CObject
 
 		CSelection(GumboNode* apNode);
 
-		CSelection(std::vector<GumboNode*> apNodes);
+		CSelection(std::vector<GumboNode*> aNodes);
 
 		virtual ~CSelection();
 
 	public:
 
-		CSelection* find(std::string aSelector);
+		CSelection find(std::string aSelector);
 
-		std::vector<GumboNode*> nodes();
+		CNode nodeAt(unsigned int i);
 
-	protected:
+		unsigned int nodeNum();
 
-		std::vector<GumboNode*> mpNodes;
+	private:
+
+		std::vector<GumboNode*> mNodes;
 };
 
 #endif /* SELECTION_H_ */

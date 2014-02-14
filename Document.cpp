@@ -32,15 +32,15 @@ CDocument::~CDocument()
 	reset();
 }
 
-CSelection* CDocument::find(std::string aSelector)
+CSelection CDocument::find(std::string aSelector)
 {
 	if (mpOutput == NULL)
 	{
 		throw "document not initialized";
 	}
 
-	CSelection* sel = new CSelection(mpOutput->root);
-	return sel->find(aSelector);
+	CSelection sel(mpOutput->root);
+	return sel.find(aSelector);
 }
 
 void CDocument::reset()

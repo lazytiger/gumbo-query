@@ -31,7 +31,7 @@ class CDocument: public CObject
 
 		virtual ~CDocument();
 
-		CSelection* find(std::string aSelector);
+		CSelection find(std::string aSelector);
 
 	private:
 
