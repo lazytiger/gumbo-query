@@ -25,7 +25,7 @@ int main()
 	{
 		CDocument d;
 
-		std::ifstream in("a.html", std::ios::in | std::ios::binary);
+		std::ifstream in("new.html", std::ios::in | std::ios::binary);
 		if (!in)
 		{
 			std::cout << "File test.html not found!\n";
@@ -40,13 +40,12 @@ int main()
 		in.close();
 
 		d.parse(contents.c_str());
-		CSelection c = d.find("div.left-mods-navs > div.left-mods-txt");
-		//CSelection c = d.find("div.left-mods-txt");
+		CSelection c = d.find("div.left-mods-txt");
 		for (unsigned int i = 0; i < c.nodeNum(); i++)
 		{
 			CNode n = c.nodeAt(i);
-			CNode a = n.parent();
-			std::cout << a.attribute("class") << std::endl;
+			CNode a = n.childAt(0);
+			std::cout << a.attribute("href") << a.text() << std::endl;
 		}
 	}
 	catch (const char* message)

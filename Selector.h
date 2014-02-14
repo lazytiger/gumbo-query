@@ -267,12 +267,6 @@ class CTextSelector: public CSelector
 
 	private:
 
-		std::string nodeText(GumboNode* apNode);
-
-		std::string nodeOwnText(GumboNode* apNode);
-
-		void writeNodeText(GumboNode* apNode, std::string& aText);
-
 	private:
 
 		std::string mValue;

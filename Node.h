@@ -48,6 +48,8 @@ class CNode
 
 		std::string text();
 
+		std::string ownText();
+
 		std::string tag();
 
 		CSelection find(std::string aSelector);

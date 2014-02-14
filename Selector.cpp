@@ -416,10 +416,10 @@ bool CTextSelector::match(GumboNode* apNode)
 	switch (mOp)
 	{
 		case EContains:
-			text = nodeText(apNode);
+			text = CQueryUtil::nodeText(apNode);
 			break;
 		case EOwnContains:
-			text = nodeOwnText(apNode);
+			text = CQueryUtil::nodeOwnText(apNode);
 			break;
 		default:
 			return false;
@@ -427,56 +427,6 @@ bool CTextSelector::match(GumboNode* apNode)
 
 	text = CQueryUtil::tolower(text);
 	return text.find(mValue) != std::string::npos;
-}
-
-std::string CTextSelector::nodeText(GumboNode* apNode)
-{
-	std::string text;
-	writeNodeText(apNode, text);
-	return text;
-}
-
-std::string CTextSelector::nodeOwnText(GumboNode* apNode)
-{
-	std::string text;
-	if (apNode->type != GUMBO_NODE_ELEMENT)
-	{
-		return text;
-	}
-
-	GumboVector children = apNode->v.element.children;
-	for (unsigned int i = 0; i < children.length; i++)
-	{
-		GumboNode* child = (GumboNode*) children.data[i];
-		if (child->type == GUMBO_NODE_TEXT)
-		{
-			text.append(child->v.text.text);
-		}
-	}
-
-	return text;
-}
-
-void CTextSelector::writeNodeText(GumboNode* apNode, std::string& aText)
-{
-	switch (apNode->type)
-	{
-		case GUMBO_NODE_TEXT:
-			aText.append(apNode->v.text.text);
-			break;
-		case GUMBO_NODE_ELEMENT:
-		{
-			GumboVector children = apNode->v.element.children;
-			for (unsigned int i = 0; i < children.length; i++)
-			{
-				GumboNode* child = (GumboNode*) children.data[i];
-				writeNodeText(child, aText);
-			}
-			break;
-		}
-		default:
-			break;
-	}
 }
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 noet: */

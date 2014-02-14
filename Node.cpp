@@ -16,6 +16,7 @@
 
 #include "Node.h"
 #include "Selection.h"
+#include "QueryUtil.h"
 
 CNode::CNode(GumboNode* apNode)
 {
@@ -89,12 +90,12 @@ std::string CNode::attribute(std::string key)
 
 std::string CNode::text()
 {
-	if (mpNode->type != GUMBO_NODE_TEXT)
-	{
-		return "";
-	}
+	return CQueryUtil::nodeText(mpNode);
+}
 
-	return mpNode->v.text.text;
+std::string CNode::ownText()
+{
+	return CQueryUtil::nodeOwnText(mpNode);
 }
 
 std::string CNode::tag()
