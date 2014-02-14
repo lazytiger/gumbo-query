@@ -17,22 +17,29 @@
 #ifndef DOCUMENT_H_
 #define DOCUMENT_H_
 
-class CSelection;
+#include <gumbo.h>
+#include <string>
+#include "Selection.h"
 
-class CDocument: public CSelection
+class CDocument: public CObject
 {
 	public:
 
 		CDocument();
 
+		void parse(std::string aInput);
+
 		virtual ~CDocument();
 
-		std::vector<GumboNode*> find(std::string aSelector);
-
-	public:
+		CSelection* find(std::string aSelector);
 
 	private:
 
+		void reset();
+
+	private:
+
+		GumboOutput* mpOutput;
 };
 
 #endif /* DOCUMENT_H_ */

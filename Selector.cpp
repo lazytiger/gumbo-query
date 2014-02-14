@@ -15,29 +15,33 @@
  **/
 
 #include "Selector.h"
+#include "QueryUtil.h"
 
-bool CSelector::operator ()(GumboNode* apNode)
+bool CSelector::match(GumboNode* apNode)
 {
 	switch (mOp)
 	{
 		case EDummy:
 			return true;
 		case EEmpty:
+		{
 			if (apNode->type != GUMBO_NODE_ELEMENT)
 			{
 				return false;
 			}
-			GumboVector* children = apNode->v.element.children;
-			for (unsigned int i = 0; i < children->length; i++)
+			GumboVector children = apNode->v.element.children;
+			for (unsigned int i = 0; i < children.length; i++)
 			{
-				GumboNode* child = (GumboNode*) children->data[i];
+				GumboNode* child = (GumboNode*) children.data[i];
 				if (child->type == GUMBO_NODE_TEXT || child->type == GUMBO_NODE_ELEMENT)
 				{
 					return false;
 				}
 			}
 			return true;
+		}
 		case EOnlyChild:
+		{
 			if (apNode->type != GUMBO_NODE_ELEMENT)
 			{
 				return false;
@@ -65,7 +69,9 @@ bool CSelector::operator ()(GumboNode* apNode)
 			}
 
 			return count == 1;
+		}
 		case ENthChild:
+		{
 			if (apNode->type != GUMBO_NODE_ELEMENT)
 			{
 				return false;
@@ -109,8 +115,9 @@ bool CSelector::operator ()(GumboNode* apNode)
 			}
 
 			return i % mA == 0 && i / mA >= 0;
+		}
 		case ETag:
-			return apNode->type == GUMBO_NODE_ELEMENT && apNode->v.element.tag = mTag;
+			return apNode->type == GUMBO_NODE_ELEMENT && apNode->v.element.tag == mTag;
 		default:
 			return false;
 	}
@@ -121,8 +128,8 @@ std::vector<GumboNode*> CSelector::filter(std::vector<GumboNode*> nodes)
 	std::vector<GumboNode*> ret;
 	for (std::vector<GumboNode*>::iterator it = nodes.begin(); it != nodes.end(); it++)
 	{
-		GumboNode* n = (*it).second;
-		if (operator()(n))
+		GumboNode* n = *it;
+		if (match(n))
 		{
 			ret.push_back(n);
 		}
@@ -139,7 +146,7 @@ std::vector<GumboNode*> CSelector::matchAll(GumboNode* apNode)
 
 void CSelector::matchAllInto(GumboNode* apNode, std::vector<GumboNode*>& nodes)
 {
-	if (operator()(apNode))
+	if (match(apNode))
 	{
 		nodes.push_back(apNode);
 	}
@@ -152,7 +159,7 @@ void CSelector::matchAllInto(GumboNode* apNode, std::vector<GumboNode*>& nodes)
 	for (unsigned int i = 0; i < apNode->v.element.children.length; i++)
 	{
 		GumboNode* child = (GumboNode*) apNode->v.element.children.data[i];
-		matchAllInto(apNode, nodes);
+		matchAllInto(child, nodes);
 	}
 }
 
@@ -191,32 +198,35 @@ CBinarySelector::CBinarySelector(CSelector* apS1, CSelector* apS2, bool aAdjacen
 	mAdjacent = aAdjacent;
 }
 
-bool CBinarySelector::operator ()(GumboNode* apNode)
+bool CBinarySelector::match(GumboNode* apNode)
 {
 	switch (mOp)
 	{
 		case EUnion:
-			return mpS1(apNode) || mpS2(apNode);
+			return mpS1->match(apNode) || mpS2->match(apNode);
 		case EIntersection:
-			return mpS1(apNode) && mpS2(apNode);
+			return mpS1->match(apNode) && mpS2->match(apNode);
 		case EChild:
-			return mpS2(apNode) && apNode->parent != NULL && mpS1(apNode->parent);
+			return mpS2->match(apNode) && apNode->parent != NULL && mpS1->match(apNode->parent);
 		case EDescendant:
-			if (!mpS2(apNode))
+		{
+			if (!mpS2->match(apNode))
 			{
 				return false;
 			}
 
 			for (GumboNode* p = apNode->parent; p != NULL; p = p->parent)
 			{
-				if (mpS1(p))
+				if (mpS1->match(p))
 				{
 					return true;
 				}
 			}
 			return false;
+		}
 		case EAdjacent:
-			if (!mpS2(apNode))
+		{
+			if (!mpS2->match(apNode))
 			{
 				return false;
 			}
@@ -238,7 +248,7 @@ bool CBinarySelector::operator ()(GumboNode* apNode)
 						continue;
 					}
 
-					return mpS1(sibling);
+					return mpS1->match(sibling);
 				}
 				return false;
 			}
@@ -246,15 +256,18 @@ bool CBinarySelector::operator ()(GumboNode* apNode)
 			for (unsigned int i = pos; i >= 0; i--)
 			{
 				GumboNode* sibling = (GumboNode*) parent->v.element.children.data[i];
-				if (mpS1(sibling))
+				if (mpS1->match(sibling))
 				{
 					return true;
 				}
 			}
 			return false;
+		}
 		default:
 			return false;
 	}
+
+	return false;
 }
 
 CAttributeSelector::CAttributeSelector(TOperator aOp, std::string aKey, std::string aValue)
@@ -264,17 +277,17 @@ CAttributeSelector::CAttributeSelector(TOperator aOp, std::string aKey, std::str
 	mOp = aOp;
 }
 
-bool CAttributeSelector::operator ()(GumboNode* apNode)
+bool CAttributeSelector::match(GumboNode* apNode)
 {
 	if (apNode->type != GUMBO_NODE_ELEMENT)
 	{
 		return false;
 	}
 
-	GumboVector* attributes = apNode->v.element.attributes;
-	for (unsigned int i = 0; i < attributes->length; i++)
+	GumboVector attributes = apNode->v.element.attributes;
+	for (unsigned int i = 0; i < attributes.length; i++)
 	{
-		GumboAttribute* attr = (GumboAttribute*) attributes->data[i];
+		GumboAttribute* attr = (GumboAttribute*) attributes.data[i];
 		if (mKey != attr->name)
 		{
 			continue;
@@ -293,7 +306,7 @@ bool CAttributeSelector::operator ()(GumboNode* apNode)
 					if (value[i] == ' ' || value[i] == '\t' || value[i] == '\r' || value[i] == '\n'
 							|| value[i] == '\f' || i == value.size() - 1)
 					{
-						std::string segment = value.substr(j, i);
+						std::string segment = value.substr(j, i - j);
 						if (segment == mValue)
 						{
 							return true;
@@ -344,10 +357,11 @@ CUnarySelector::~CUnarySelector()
 
 bool CUnarySelector::hasDescendantMatch(GumboNode* apNode, CSelector* apS)
 {
-	for (unsigned int i = 0; i < parent->v.element.children.length; i++)
+	for (unsigned int i = 0; i < apNode->v.element.children.length; i++)
 	{
-		GumboNode* child = (GumboNode*) parent->v.element.children.data[i];
-		if (apS(child) || (child->type == GUMBO_NODE_ELEMENT && hasDescendant(child, apS)))
+		GumboNode* child = (GumboNode*) apNode->v.element.children.data[i];
+		if (apS->match(child)
+				|| (child->type == GUMBO_NODE_ELEMENT && hasDescendantMatch(child, apS)))
 		{
 			return true;
 		}
@@ -357,10 +371,10 @@ bool CUnarySelector::hasDescendantMatch(GumboNode* apNode, CSelector* apS)
 
 bool CUnarySelector::hasChildMatch(GumboNode* apNode, CSelector* apS)
 {
-	for (unsigned int i = 0; i < parent->v.element.children.length; i++)
+	for (unsigned int i = 0; i < apNode->v.element.children.length; i++)
 	{
-		GumboNode* child = (GumboNode*) parent->v.element.children.data[i];
-		if (apS(child))
+		GumboNode* child = (GumboNode*) apNode->v.element.children.data[i];
+		if (apS->match(child))
 		{
 			return true;
 		}
@@ -368,12 +382,12 @@ bool CUnarySelector::hasChildMatch(GumboNode* apNode, CSelector* apS)
 	return false;
 }
 
-bool CUnarySelector::operator ()(GumboNode* apNode)
+bool CUnarySelector::match(GumboNode* apNode)
 {
 	switch (mOp)
 	{
 		case ENot:
-			return !mpS(apNode);
+			return !mpS->match(apNode);
 		case EHasDescendant:
 			if (apNode->type != GUMBO_NODE_ELEMENT)
 			{
@@ -391,7 +405,7 @@ bool CUnarySelector::operator ()(GumboNode* apNode)
 	}
 }
 
-bool CTextSelector::operator ()(GumboNode* apNode)
+bool CTextSelector::match(GumboNode* apNode)
 {
 	std::string text;
 	switch (mOp)
@@ -405,8 +419,8 @@ bool CTextSelector::operator ()(GumboNode* apNode)
 		default:
 			return false;
 	}
-	//TODO text tolower
 
+	text = CQueryUtil::tolower(text);
 	return text.find(mValue) != std::string::npos;
 }
 
@@ -425,10 +439,10 @@ std::string CTextSelector::nodeOwnText(GumboNode* apNode)
 		return text;
 	}
 
-	GumboVector* children = apNode->v.element.children;
-	for (unsigned int i = 0; i < children->length; i++)
+	GumboVector children = apNode->v.element.children;
+	for (unsigned int i = 0; i < children.length; i++)
 	{
-		GumboNode* child = (GumboNode*) children->data[i];
+		GumboNode* child = (GumboNode*) children.data[i];
 		if (child->type == GUMBO_NODE_TEXT)
 		{
 			text.append(child->v.text.text);
@@ -446,11 +460,16 @@ void CTextSelector::writeNodeText(GumboNode* apNode, std::string& aText)
 			aText.append(apNode->v.text.text);
 			break;
 		case GUMBO_NODE_ELEMENT:
-			for (unsigned int i = 0; i < children->length; i++)
+		{
+			GumboVector children = apNode->v.element.children;
+			for (unsigned int i = 0; i < children.length; i++)
 			{
-				GumboNode* child = (GumboNode*) children->data[i];
+				GumboNode* child = (GumboNode*) children.data[i];
 				writeNodeText(child, aText);
 			}
+			break;
+		}
+		default:
 			break;
 	}
 }

@@ -23,6 +23,10 @@ CObject::CObject()
 
 CObject::~CObject()
 {
+	if (mReferences != 1)
+	{
+		throw "something wrong, reference count not zero";
+	}
 }
 
 void CObject::retain()
@@ -32,10 +36,18 @@ void CObject::retain()
 
 void CObject::release()
 {
-	mReferences--;
-	if (mReference == 0)
+	if (mReferences < 0)
+	{
+		throw "something wrong, reference count is negative";
+	}
+
+	if (mReferences == 1)
 	{
 		delete this;
+	}
+	else
+	{
+		mReferences--;
 	}
 }
 

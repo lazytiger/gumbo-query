@@ -15,16 +15,41 @@
  **/
 
 #include "Selection.h"
+#include "Parser.h"
+#include "QueryUtil.h"
 
-CSelection::CSelection()
+CSelection::CSelection(GumboNode* apNode)
 {
-	// TODO Auto-generated constructor stub
-	
+	mpNodes.push_back(apNode);
+}
+
+CSelection::CSelection(std::vector<GumboNode*> apNodes)
+{
+	mpNodes = apNodes;
 }
 
 CSelection::~CSelection()
 {
-	// TODO Auto-generated destructor stub
+}
+
+CSelection* CSelection::find(std::string aSelector)
+{
+	CSelector* sel = CParser::create(aSelector);
+	std::vector<GumboNode*> ret;
+	for (std::vector<GumboNode*>::iterator it = mpNodes.begin(); it != mpNodes.end(); it++)
+	{
+		GumboNode* pNode = *it;
+		std::vector<GumboNode*> matched = sel->matchAll(pNode);
+		ret = CQueryUtil::unionNodes(ret, matched);
+	}
+	sel->release();
+	return new CSelection(ret);
+}
+
+std::vector<GumboNode*> CSelection::nodes()
+{
+	return mpNodes;
 }
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 noet: */
+

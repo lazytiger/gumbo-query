@@ -16,6 +16,7 @@
 
 #include "Parser.h"
 #include "Selector.h"
+#include "QueryUtil.h"
 
 CParser::CParser(std::string aInput)
 {
@@ -97,11 +98,11 @@ CSelector* CParser::parseSelector()
 		}
 		else if (combinator == '+')
 		{
-			ret = new CBinarySelector(CBinarySelector::EAdjacent, ret, sel, true);
+			ret = new CBinarySelector(ret, sel, true);
 		}
 		else if (combinator == '~')
 		{
-			ret = new CBinarySelector(CBinarySelector::EAdjacent, ret, sel, true);
+			ret = new CBinarySelector(ret, sel, true);
 		}
 		else
 		{
@@ -133,7 +134,7 @@ CSelector* CParser::parseSimpleSelectorSequence()
 		return parseTypeSelector();
 	}
 
-	CSelector* ret;
+	CSelector* ret = NULL;
 	while (mOffset < mInput.size())
 	{
 		char c = mInput[mOffset];
@@ -159,7 +160,7 @@ CSelector* CParser::parseSimpleSelectorSequence()
 			break;
 		}
 
-		if (ret == nil)
+		if (ret == NULL)
 		{
 			ret = sel;
 		}
@@ -169,7 +170,7 @@ CSelector* CParser::parseSimpleSelectorSequence()
 		}
 	}
 
-	if (ret == nil)
+	if (ret == NULL)
 	{
 		ret = new CSelector();
 	}
@@ -179,53 +180,56 @@ CSelector* CParser::parseSimpleSelectorSequence()
 
 void CParser::parseNth(int& aA, int& aB)
 {
+
 	if (mOffset >= mInput.size())
 	{
 		goto eof;
 	}
 
-	char c = mInput[mOffset];
-	if (c == '-')
 	{
-		mOffset++;
-		goto negativeA;
-	}
-	else if (c == '+')
-	{
-		mOffset++;
-		goto positiveA;
-	}
-	else if (c >= '0' && c <= '9')
-	{
-		goto positiveA;
-	}
-	else if (c == 'n' || c == 'N')
-	{
-		goto readN;
-	}
-	else if (c == 'o' || c == 'O' || c == 'e' || c == 'E')
-	{
-		std::string id = parseName();
-		id = tolower(id);
-		if (id == "odd")
+		char c = mInput[mOffset];
+		if (c == '-')
 		{
-			a = 2;
-			b = 1;
+			mOffset++;
+			goto negativeA;
 		}
-		else if (id == "even")
+		else if (c == '+')
 		{
-			a = 2;
-			b = 0;
+			mOffset++;
+			goto positiveA;
+		}
+		else if (c >= '0' && c <= '9')
+		{
+			goto positiveA;
+		}
+		else if (c == 'n' || c == 'N')
+		{
+			goto readN;
+		}
+		else if (c == 'o' || c == 'O' || c == 'e' || c == 'E')
+		{
+			std::string id = parseName();
+			id = CQueryUtil::tolower(id);
+			if (id == "odd")
+			{
+				aA = 2;
+				aB = 1;
+			}
+			else if (id == "even")
+			{
+				aA = 2;
+				aB = 0;
+			}
+			else
+			{
+				throw error("expected 'odd' or 'even', invalid found");
+			}
+			return;
 		}
 		else
 		{
-			throw error("expected 'odd' or 'even', invalid found");
+			goto invalid;
 		}
-		return;
-	}
-	else
-	{
-		goto invalid;
 	}
 
 	positiveA:
@@ -237,12 +241,12 @@ void CParser::parseNth(int& aA, int& aB)
 		char c = mInput[mOffset];
 		if (c >= '0' && c <= '9')
 		{
-			a = parseInteger();
+			aA = parseInteger();
 			goto readA;
 		}
 		else if (c == 'n' || c == 'N')
 		{
-			a = 1;
+			aA = 1;
 			mOffset++;
 			goto readN;
 		}
@@ -261,12 +265,12 @@ void CParser::parseNth(int& aA, int& aB)
 		char c = mInput[mOffset];
 		if (c >= '0' && c <= '9')
 		{
-			a = -parseInteger();
+			aA = -parseInteger();
 			goto readA;
 		}
 		else if (c == 'n' || c == 'N')
 		{
-			a = -1;
+			aA = -1;
 			mOffset++;
 			goto readN;
 		}
@@ -291,8 +295,8 @@ void CParser::parseNth(int& aA, int& aB)
 		}
 		else
 		{
-			b = a;
-			a = 0;
+			aB = aA;
+			aA = 0;
 			return;
 		}
 
@@ -311,19 +315,19 @@ void CParser::parseNth(int& aA, int& aB)
 		{
 			mOffset++;
 			skipWhitespace();
-			b = parseInteger();
+			aB = parseInteger();
 			return;
 		}
 		else if (c == '-')
 		{
 			mOffset--;
 			skipWhitespace();
-			b = -parseInteger();
+			aB = -parseInteger();
 			return;
 		}
 		else
 		{
-			b = 0;
+			aB = 0;
 			return;
 		}
 	}
@@ -371,7 +375,7 @@ CSelector* CParser::parsePseudoclassSelector()
 	}
 	mOffset++;
 	std::string name = parseIdentifier();
-	name = tolower(name);
+	name = CQueryUtil::tolower(name);
 	if (name == "not" || name == "has" || name == "haschild")
 	{
 		if (!consumeParenthesis())
@@ -396,7 +400,7 @@ CSelector* CParser::parsePseudoclassSelector()
 		}
 		else if (name == "haschild")
 		{
-			op = CUnarySelector::EHasChid;
+			op = CUnarySelector::EHasChild;
 		}
 		else
 		{
@@ -421,7 +425,7 @@ CSelector* CParser::parsePseudoclassSelector()
 		{
 			value = parseIdentifier();
 		}
-		value = tolower(value);
+		value = CQueryUtil::tolower(value);
 		skipWhitespace();
 
 		if (!consumeClosingParenthesis())
@@ -458,7 +462,7 @@ CSelector* CParser::parsePseudoclassSelector()
 		}
 
 		int a, b;
-		parseNth(&a, &b);
+		parseNth(a, b);
 
 		if (!consumeClosingParenthesis())
 		{
@@ -500,20 +504,6 @@ CSelector* CParser::parsePseudoclassSelector()
 	{
 		throw error("unsupported op:" + name);
 	}
-}
-
-std::string CParser::tolower(std::string s)
-{
-	for (unsigned int i = 0; i < s.size(); i++)
-	{
-		char c = s[i];
-		if (c >= 'A' && c <= 'Z')
-		{
-			c = 'a' + c - 'A';
-		}
-		s[i] = c;
-	}
-	return s;
 }
 
 CSelector* CParser::parseAttributeSelector()
@@ -888,7 +878,7 @@ std::string CParser::parseEscape()
 
 	unsigned int i = 0;
 	std::string ret;
-	char c = 0;
+	c = 0;
 	for (i = start; i < mOffset + 6 && i < mInput.size() && hexDigit(mInput[i]); i++)
 	{
 		unsigned int d = 0;
@@ -955,9 +945,9 @@ std::string CParser::error(std::string message)
 {
 	unsigned int d = mOffset;
 	std::string ds;
-	if (ds == 0)
+	if (d == 0)
 	{
-		ds = "0";
+		ds = '0';
 	}
 
 	while (d)

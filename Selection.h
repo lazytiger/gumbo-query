@@ -17,11 +17,15 @@
 #ifndef SELECTION_H_
 #define SELECTION_H_
 
-#include <vector>
 #include "Object.h"
+#include <vector>
+#include <string>
+#include <vector>
+#include <gumbo.h>
 
 class CSelection: public CObject
 {
+
 	public:
 
 		CSelection(GumboNode* apNode);

@@ -19,8 +19,7 @@
 
 #include <string>
 #include <gumbo.h>
-
-class CSelector;
+#include "Selector.h"
 
 class CParser
 {
@@ -79,8 +78,6 @@ class CParser
 		std::string parseEscape();
 
 		std::string error(std::string message);
-
-		std::string tolower(std::string s);
 
 	private:
 

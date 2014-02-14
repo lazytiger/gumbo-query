@@ -77,7 +77,7 @@ class CSelector: public CObject
 
 	public:
 
-		virtual bool operator ()(GumboNode* apNode);
+		virtual bool match(GumboNode* apNode);
 
 		std::vector<GumboNode*> filter(std::vector<GumboNode*> nodes);
 
@@ -91,7 +91,7 @@ class CSelector: public CObject
 			mA = 0;
 			mB = 0;
 			mLast = false;
-			mTag = 0;
+			mTag = GumboTag(0);
 		}
 
 		void matchAllInto(GumboNode* apNode, std::vector<GumboNode*>& nodes);
@@ -121,7 +121,7 @@ class CUnarySelector: public CSelector
 			//
 			EHasDescendant,
 			//
-			EHasChid,
+			EHasChild,
 		} TOperator;
 
 	public:
@@ -132,7 +132,7 @@ class CUnarySelector: public CSelector
 
 	public:
 
-		virtual bool operator ()(GumboNode* apNode);
+		virtual bool match(GumboNode* apNode);
 
 	private:
 
@@ -170,9 +170,11 @@ class CBinarySelector: public CSelector
 
 		CBinarySelector(CSelector* apS1, CSelector* apS2, bool aAdjacent);
 
+		~CBinarySelector();
+
 	public:
 
-		virtual bool operator ()(GumboNode* apNode);
+		virtual bool match(GumboNode* apNode);
 
 	private:
 
@@ -226,7 +228,7 @@ class CAttributeSelector: public CSelector
 
 	public:
 
-		virtual bool operator ()(GumboNode* apNode);
+		virtual bool match(GumboNode* apNode);
 
 	private:
 
@@ -261,7 +263,7 @@ class CTextSelector: public CSelector
 
 	public:
 
-		virtual bool operator ()(GumboNode* apNode);
+		virtual bool match(GumboNode* apNode);
 
 	private:
 
