@@ -25,8 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B21A1571AC6BB2800F8863F /* build_doxyfile.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = build_doxyfile.sh; path = ../build_doxyfile.sh; sourceTree = SOURCE_ROOT; };
-		0B21A1581AC6BB3600F8863F /* Doxyfile.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Doxyfile.config; path = ../Doxyfile.config; sourceTree = SOURCE_ROOT; };
+		0B21A1571AC6BB2800F8863F /* xcode_build_doxyfile.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = xcode_build_doxyfile.sh; sourceTree = SOURCE_ROOT; };
 		0B21A1591AC6BB8100F8863F /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = ../example/Makefile; sourceTree = "<group>"; };
 		0B21A15B1AC6C1B300F8863F /* libgumbo.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgumbo.1.dylib; path = ../../../../../../usr/local/lib/libgumbo.1.dylib; sourceTree = "<group>"; };
 		0B42B9541AC6B77D009A55BA /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = ../src/Document.cpp; sourceTree = "<group>"; };
@@ -63,8 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				0B21A15B1AC6C1B300F8863F /* libgumbo.1.dylib */,
-				0B21A1581AC6BB3600F8863F /* Doxyfile.config */,
-				0B21A1571AC6BB2800F8863F /* build_doxyfile.sh */,
+				0B21A1571AC6BB2800F8863F /* xcode_build_doxyfile.sh */,
 				0B42B9691AC6B794009A55BA /* example */,
 				0B42B9531AC6B602009A55BA /* src */,
 				0B42B94A1AC6B5EF009A55BA /* Products */,
@@ -136,7 +134,7 @@
 				0B42B98D1AC6B9A3009A55BA /* Sources */,
 				0B42B98E1AC6B9A3009A55BA /* Frameworks */,
 				0B42B98F1AC6B9A3009A55BA /* Headers */,
-				0B16BCE11AC6C32800610972 /* ShellScript */,
+				0B16BCE11AC6C32800610972 /* Build Doxygen */,
 			);
 			buildRules = (
 			);
@@ -179,18 +177,19 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0B16BCE11AC6C32800610972 /* ShellScript */ = {
+		0B16BCE11AC6C32800610972 /* Build Doxygen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Build Doxygen";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = $SOURCE_ROOT/../build_doxyfile.sh;
+			shellScript = $SOURCE_ROOT/xcode_build_doxyfile.sh;
 		};
 /* End PBXShellScriptBuildPhase section */
 
