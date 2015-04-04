@@ -21,7 +21,14 @@ src/Selection.h \
 src/Selector.cpp \
 src/Selector.h
 
-include_HEADERS = src/Document.h src/Node.h
+include_HEADERS = \
+src/Document.h \
+src/Node.h \
+src/Object.h \
+src/Parser.h \
+src/QueryUtil.h \
+src/Selection.h \
+src/Selector.h
 
 noinst_PROGRAMS = main
 
