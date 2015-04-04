@@ -15,11 +15,6 @@ AC_PROG_CXX
 # Check for libraries.
 AC_CHECK_LIB([libgumbo], [gumbo_parse("<h1>Test</h1>")])
 
-AC_CHECK_LIB([gtest_main],
-[main],
-AM_CONDITIONAL(HAVE_SHARED_LIBGTEST, [true]),
-AM_CONDITIONAL(HAVE_SHARED_LIBGTEST, [false]))
-
 # Check for header files.
 AC_CHECK_HEADERS([gumbo.h string.h vector.h])
 
