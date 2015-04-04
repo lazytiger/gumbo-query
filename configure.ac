@@ -31,3 +31,4 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 LT_INIT
 
 AC_OUTPUT
+# need newline at end to avoid errors.
