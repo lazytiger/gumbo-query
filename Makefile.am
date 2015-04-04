@@ -21,6 +21,7 @@ src/Selection.h \
 src/Selector.cpp \
 src/Selector.h
 
+include_dir = $(includedir)/gumbo-query
 include_HEADERS = \
 src/Document.h \
 src/Node.h \
