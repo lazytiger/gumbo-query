@@ -1,12 +1,10 @@
 #
 ACLOCAL_AMFLAGS = -I m4
 
-AM_LDFLAGS = -llibgumbo
-
 # http://www.gnu.org/software/automake/manual/html_node/Libtool-Libraries.html
 lib_LTLIBRARIES = libgumbo_query.la
 libgumbo_query_la_CXXFLAGS = -Wall
-libgumbo_query_la_LDFLAGS = -version-info 1:0:0 -no-undefined
+libgumbo_query_la_LDFLAGS = -llibgumbo
 libgumbo_query_la_SOURCES = \
 src/Document.cpp \
 src/Document.h \

@@ -13,10 +13,10 @@ AC_CONFIG_FILES([Makefile gumbo-query.pc])
 AC_PROG_CXX
 
 # Check for libraries.
-AC_CHECK_LIB([libgumbo], [gumbo_parse("<h1>Test</h1>")])
+AC_CHECK_LIB([libgumbo])
 
 # Check for header files.
-AC_CHECK_HEADERS([gumbo.h string.h vector.h])
+AC_CHECK_HEADERS([gumbo.h])
 
 # Init Automake & libtool
 AM_INIT_AUTOMAKE([foreign subdir-objects])
