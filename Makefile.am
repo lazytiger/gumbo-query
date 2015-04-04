@@ -22,7 +22,7 @@ src/Selector.cpp \
 src/Selector.h
 
 subincludedir = $(includedir)/gumbo-query
-subincludedir_HEADERS = \
+subinclude_HEADERS = \
 src/Document.h \
 src/Node.h \
 src/Object.h \
