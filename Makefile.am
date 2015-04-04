@@ -2,10 +2,10 @@
 ACLOCAL_AMFLAGS = -I m4
 
 # http://www.gnu.org/software/automake/manual/html_node/Libtool-Libraries.html
-lib_LTLIBRARIES = libgumbo-query.la
-libgumbo-query_la_CXXFLAGS = -Wall
-libgumbo-query_la_LDFLAGS = -version-info 1:0:0 -no-undefined
-libgumbo-query_la_SOURCES = \
+lib_LTLIBRARIES = libgumboquery.la
+libgumboquery_la_CXXFLAGS = -Wall
+libgumboquery_la_LDFLAGS = -version-info 1:0:0 -no-undefined
+libgumboquery_la_SOURCES = \
 src/Document.cpp \
 src/Document.h \
 src/Node.cpp \
@@ -25,7 +25,7 @@ include_HEADERS = src/Document.h src/Node.h
 
 noinst_PROGRAMS = main
 
-LDADD = libgumbo-query.la
+LDADD = libgumboquery.la
 
 AM_CPPFLAGS = -I"$(srcdir)/src"
 
