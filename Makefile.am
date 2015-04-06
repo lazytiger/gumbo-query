@@ -31,10 +31,6 @@ src/QueryUtil.h \
 src/Selection.h \
 src/Selector.h
 
-noinst_PROGRAMS = \
-examples/main.cpp \
-examples/Makefile
-
 LDADD = libgumbo_query.la
 
 AM_CPPFLAGS = -I"$(srcdir)/src"
