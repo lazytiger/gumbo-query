@@ -31,7 +31,9 @@ src/QueryUtil.h \
 src/Selection.h \
 src/Selector.h
 
-noinst_PROGRAMS = main
+noinst_PROGRAMS = \
+examples/main.cpp \
+examples/Makefile
 
 LDADD = libgumbo_query.la
 
