@@ -1,7 +1,7 @@
 /***************************************************************************
- * 
+ *
  * $Id$
- * 
+ *
  **************************************************************************/
 
 /**
@@ -9,14 +9,14 @@
  * @author $Author$(hoping@baimashi.com)
  * @date $Date$
  * @version $Revision$
- * @brief 
- *  
+ * @brief
+ *
  **/
 
 #include <iostream>
 #include <fstream>
-#include "gumbo-query/Document.h"
-#include "gumbo-query/Node.h"
+#include "Document.h"
+#include "Node.h"
 
 int main()
 {
