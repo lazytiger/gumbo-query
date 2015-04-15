@@ -28,14 +28,15 @@
 # NB: NIB/XIB files still exist even on Storyboard projects, so we want this...
 *~.nib
 
+# Sublime project files.
+.sublime-project
+.sublime-workspace
+
 ####
 # Xcode build files -
 #
 # NB: slash on the end, so we only remove the FOLDER, not any files that were badly named "DerivedData"
 DerivedData/
-
-# NB: slash on the end, so we only remove the FOLDER, not any files that were badly named "build"
-build/*
 
 # Generated documentation folders.
 latex/
