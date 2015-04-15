@@ -1,5 +1,6 @@
 # gumbo-query
 A C++ library that provides jQuery-like selectors for Google's Gumbo-Parser.
+
 Selector engine is an implementation based on [cascadia](code.google.com/p/cascadia).
 
 ## Installation
