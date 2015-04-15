@@ -4,11 +4,12 @@ Selector engine is an implementation based on [cascadia](code.google.com/p/casca
 
 ## Installation
 2 ways:
-1. Through homebrew (Recommended):
+
+Through homebrew (Recommended):
 ```bash
 $ brew install gumbo-query
 ```
-2. Through git:
+Through git:
 ```bash
 $ git clone https://github.com/Falven/gumbo-query
 $ cd gumbo-query/build && cmake .. && make && make test
