@@ -16,6 +16,10 @@ $ git clone https://github.com/Falven/gumbo-query
 $ cd gumbo-query/build && cmake .. && make && make test
 $ sudo make install
 ```
+And to generate Doxygen documentation:
+```bash
+$ make doc
+```
 
 ## Usage
 ```C++
