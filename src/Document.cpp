@@ -20,7 +20,7 @@ CDocument::CDocument()
 	mpOutput = NULL;
 }
 
-void CDocument::parse(std::string aInput)
+void CDocument::parse(const std::string& aInput)
 {
 	reset();
 	mpOutput = gumbo_parse(aInput.c_str());
