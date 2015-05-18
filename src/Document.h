@@ -26,7 +26,7 @@ class CDocument: public CObject
 
 		CDocument();
 
-		void parse(std::string aInput);
+		void parse(const std::string& aInput);
 
 		virtual ~CDocument();
 

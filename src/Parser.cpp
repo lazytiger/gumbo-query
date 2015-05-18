@@ -86,6 +86,7 @@ CSelector* CParser::parseSelector()
 			return ret;
 		}
 
+		CSelector* oldRet = ret;
 		CSelector* sel = parseSimpleSelectorSequence();
 		if (combinator == ' ')
 		{
@@ -107,6 +108,8 @@ CSelector* CParser::parseSelector()
 		{
 			throw error("impossible");
 		}
+		oldRet->release();
+		sel->release();
 	}
 
 	throw error("impossible");
@@ -956,9 +959,8 @@ std::string CParser::error(std::string message)
 	}
 
 	std::string ret = message + " at:";
-	for (unsigned int i = ds.size() - 1; i >= 0; i--)
-	{
-		ret.push_back(ds[i]);
+	for (std::string::reverse_iterator rit = ds.rbegin(); rit != ds.rend(); ++rit) {
+		ret.push_back(*rit);
 	}
 
 	return ret;
