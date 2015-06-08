@@ -48,10 +48,10 @@ class CNode
 		std::string text();
 
 		std::string ownText();
-    
-        size_t startPos();
-    
-        size_t endPos();
+
+		size_t startPos();
+
+		size_t endPos();
 
 		std::string tag();
 

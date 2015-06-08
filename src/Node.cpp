@@ -99,29 +99,29 @@ std::string CNode::ownText()
 
 size_t CNode::startPos()
 {
-    switch(mpNode->type)
-    {
-        case GUMBO_NODE_ELEMENT:
-            return mpNode->v.element.start_pos.offset + mpNode->v.element.original_tag.length;
-        case GUMBO_NODE_TEXT:
-            return mpNode->v.text.start_pos.offset;
-        default:
-            return 0;
-    }
+	switch(mpNode->type)
+	{
+	  case GUMBO_NODE_ELEMENT:
+		  return mpNode->v.element.start_pos.offset + mpNode->v.element.original_tag.length;
+	  case GUMBO_NODE_TEXT:
+		  return mpNode->v.text.start_pos.offset;
+	  default:
+		  return 0;
+  }
 }
 
 size_t CNode::endPos()
 {
-    switch(mpNode->type)
-    {
-        case GUMBO_NODE_ELEMENT:
-            return mpNode->v.element.end_pos.offset;
-        case GUMBO_NODE_TEXT:
-            return mpNode->v.text.original_text.length + startPos();
-        default:
-            return 0;
-    }
-    
+	switch(mpNode->type)
+	{
+	  case GUMBO_NODE_ELEMENT:
+		  return mpNode->v.element.end_pos.offset;
+	  case GUMBO_NODE_TEXT:
+		  return mpNode->v.text.original_text.length + startPos();
+	  default:
+		  return 0;
+  }
+
 }
 
 std::string CNode::tag()
