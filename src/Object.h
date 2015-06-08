@@ -34,7 +34,7 @@ class CObject
 
 	private:
 
-		unsigned int mReferences;
+		int mReferences;
 };
 
 #endif /* OBJECT_H_ */

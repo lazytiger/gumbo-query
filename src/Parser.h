@@ -82,7 +82,7 @@ class CParser
 
 		std::string mInput;
 
-		unsigned int mOffset;
+		size_t mOffset;
 };
 
 #endif /* PARSER_H_ */

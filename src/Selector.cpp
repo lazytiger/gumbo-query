@@ -113,7 +113,7 @@ bool CSelector::match(GumboNode* apNode)
 				return i == 0;
 			}
 
-			return i % mA == 0 && i / mA >= 0;
+			return i % mA == 0 && i / mA > 0;
 		}
 		case ETag:
 			return apNode->type == GUMBO_NODE_ELEMENT && apNode->v.element.tag == mTag;
@@ -235,11 +235,11 @@ bool CBinarySelector::match(GumboNode* apNode)
 				return false;
 			}
 
-			unsigned int pos = apNode->index_within_parent;
+			size_t pos = apNode->index_within_parent;
 			GumboNode* parent = apNode->parent;
 			if (mAdjacent)
 			{
-				for (unsigned int i = pos; i >= 0; i--)
+				for (long i = pos; i >= 0; i--)
 				{
 					GumboNode* sibling = (GumboNode*) parent->v.element.children.data[i];
 					if (sibling->type == GUMBO_NODE_TEXT || sibling->type == GUMBO_NODE_COMMENT)
@@ -252,7 +252,7 @@ bool CBinarySelector::match(GumboNode* apNode)
 				return false;
 			}
 
-			for (unsigned int i = pos; i >= 0; i--)
+			for (long i = pos; i >= 0; i--)
 			{
 				GumboNode* sibling = (GumboNode*) parent->v.element.children.data[i];
 				if (mpS1->match(sibling))

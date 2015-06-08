@@ -57,7 +57,7 @@ bool CNode::valid()
 	return mpNode != NULL;
 }
 
-CNode CNode::childAt(unsigned int i)
+CNode CNode::childAt(size_t i)
 {
 	if (mpNode->type != GUMBO_NODE_ELEMENT || i >= mpNode->v.element.children.length)
 	{

@@ -41,7 +41,7 @@ class CNode
 
 		unsigned int childNum();
 
-		CNode childAt(unsigned int i);
+		CNode childAt(size_t i);
 
 		std::string attribute(std::string key);
 

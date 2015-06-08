@@ -46,7 +46,7 @@ CSelection CSelection::find(std::string aSelector)
 	return CSelection(ret);
 }
 
-CNode CSelection::nodeAt(unsigned int i)
+CNode CSelection::nodeAt(size_t i)
 {
 	if (i >= mNodes.size())
 	{
@@ -56,7 +56,7 @@ CNode CSelection::nodeAt(unsigned int i)
 	return CNode(mNodes[i]);
 }
 
-unsigned int CSelection::nodeNum()
+size_t CSelection::nodeNum()
 {
 	return mNodes.size();
 }

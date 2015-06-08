@@ -120,9 +120,6 @@ CSelector* CParser::parseSelector()
 		}
 
 	}
-
-	ret->release();
-	throw error("impossible");
 }
 
 CSelector* CParser::parseSimpleSelectorSequence()
@@ -361,7 +358,7 @@ void CParser::parseNth(int& aA, int& aB)
 
 int CParser::parseInteger()
 {
-	unsigned int offset = mOffset;
+	size_t offset = mOffset;
 	int i = 0;
 	for (; offset < mInput.size(); offset++)
 	{
@@ -662,7 +659,7 @@ CSelector* CParser::parseTypeSelector()
 
 bool CParser::consumeClosingParenthesis()
 {
-	unsigned int offset = mOffset;
+	size_t offset = mOffset;
 	skipWhitespace();
 	if (mOffset < mInput.size() && mInput[mOffset] == ')')
 	{
@@ -686,7 +683,7 @@ bool CParser::consumeParenthesis()
 
 bool CParser::skipWhitespace()
 {
-	unsigned int offset = mOffset;
+	size_t offset = mOffset;
 	while (offset < mInput.size())
 	{
 		char c = mInput[offset];
@@ -699,7 +696,7 @@ bool CParser::skipWhitespace()
 		{
 			if (mInput.size() > offset + 1 && mInput[offset + 1] == '*')
 			{
-				unsigned int pos = mInput.find("*/", offset + 2);
+				size_t pos = mInput.find("*/", offset + 2);
 				if (pos != std::string::npos)
 				{
 					offset = pos + 2;
@@ -721,7 +718,7 @@ bool CParser::skipWhitespace()
 
 std::string CParser::parseString()
 {
-	unsigned int offset = mOffset;
+	size_t offset = mOffset;
 	if (mInput.size() < offset + 2)
 	{
 		throw error("expected string, found EOF instead");
@@ -768,7 +765,7 @@ std::string CParser::parseString()
 		}
 		else
 		{
-			unsigned int start = offset;
+			size_t start = offset;
 			while (offset < mInput.size())
 			{
 				char c = mInput[offset];
@@ -795,14 +792,14 @@ std::string CParser::parseString()
 
 std::string CParser::parseName()
 {
-	unsigned int offset = mOffset;
+	size_t offset = mOffset;
 	std::string ret;
 	while (offset < mInput.size())
 	{
 		char c = mInput[offset];
 		if (nameChar(c))
 		{
-			unsigned int start = offset;
+			size_t start = offset;
 			while (offset < mInput.size() && nameChar(mInput[offset]))
 			{
 				offset++;
@@ -881,7 +878,7 @@ std::string CParser::parseEscape()
 		throw error("invalid escape sequence");
 	}
 
-	unsigned int start = mOffset + 1;
+	size_t start = mOffset + 1;
 	char c = mInput[start];
 	if (c == '\r' || c == '\n' || c == '\f')
 	{
@@ -895,7 +892,7 @@ std::string CParser::parseEscape()
 		return ret;
 	}
 
-	unsigned int i = 0;
+	size_t i = 0;
 	std::string ret;
 	c = 0;
 	for (i = start; i < mOffset + 6 && i < mInput.size() && hexDigit(mInput[i]); i++)
@@ -962,7 +959,7 @@ std::string CParser::parseEscape()
 
 std::string CParser::error(std::string message)
 {
-	unsigned int d = mOffset;
+	size_t d = mOffset;
 	std::string ds;
 	if (d == 0)
 	{

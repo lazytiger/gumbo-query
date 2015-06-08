@@ -38,9 +38,9 @@ class CSelection: public CObject
 
 		CSelection find(std::string aSelector);
 
-		CNode nodeAt(unsigned int i);
+		CNode nodeAt(size_t i);
 
-		unsigned int nodeNum();
+		size_t nodeNum();
 
 	private:
 
