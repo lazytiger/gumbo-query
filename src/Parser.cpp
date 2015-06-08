@@ -46,7 +46,10 @@ CSelector* CParser::parseSelectorGroup()
 		mOffset++;
 
 		CSelector* sel = parseSelector();
+		CSelector* oldRet = ret;
 		ret = new CBinarySelector(CBinarySelector::EUnion, ret, sel);
+		sel->release();
+		oldRet->release();
 	}
 
 	return ret;
@@ -88,30 +91,37 @@ CSelector* CParser::parseSelector()
 
 		CSelector* oldRet = ret;
 		CSelector* sel = parseSimpleSelectorSequence();
+		bool isOk = true;
 		if (combinator == ' ')
 		{
-			ret = new CBinarySelector(CBinarySelector::EDescendant, ret, sel);
+			ret = new CBinarySelector(CBinarySelector::EDescendant, oldRet, sel);
 		}
 		else if (combinator == '>')
 		{
-			ret = new CBinarySelector(CBinarySelector::EChild, ret, sel);
+			ret = new CBinarySelector(CBinarySelector::EChild, oldRet, sel);
 		}
 		else if (combinator == '+')
 		{
-			ret = new CBinarySelector(ret, sel, true);
+			ret = new CBinarySelector(oldRet, sel, true);
 		}
 		else if (combinator == '~')
 		{
-			ret = new CBinarySelector(ret, sel, true);
+			ret = new CBinarySelector(oldRet, sel, true);
 		}
 		else
 		{
-			throw error("impossible");
+			isOk = false;
 		}
 		oldRet->release();
 		sel->release();
+		if(!isOk) 
+		{
+			throw error("impossible");
+		}
+
 	}
 
+	ret->release();
 	throw error("impossible");
 }
 
@@ -140,7 +150,7 @@ CSelector* CParser::parseSimpleSelectorSequence()
 	while (mOffset < mInput.size())
 	{
 		char c = mInput[mOffset];
-		CSelector* sel;
+		CSelector* sel = NULL;
 		if (c == '#')
 		{
 			sel = parseIDSelector();
@@ -168,7 +178,10 @@ CSelector* CParser::parseSimpleSelectorSequence()
 		}
 		else
 		{
+			CSelector* oldRet = ret;
 			ret = new CBinarySelector(CBinarySelector::EIntersection, ret, sel);
+			sel->release();
+			oldRet->release();
 		}
 	}
 
@@ -388,6 +401,7 @@ CSelector* CParser::parsePseudoclassSelector()
 		CSelector* sel = parseSelectorGroup();
 		if (!consumeClosingParenthesis())
 		{
+			sel->release();
 			throw error("expected ')' but didn't find it");
 		}
 
@@ -406,9 +420,12 @@ CSelector* CParser::parsePseudoclassSelector()
 		}
 		else
 		{
+			sel->release();
 			throw error("impossbile");
 		}
-		return new CUnarySelector(op, sel);
+		CSelector* ret = new CUnarySelector(op, sel);
+		sel->release();
+		return ret;
 	}
 	else if (name == "contains" || name == "containsown")
 	{
