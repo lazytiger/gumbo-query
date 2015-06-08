@@ -23,7 +23,17 @@ void test_html() {
 	printf("Node: #%s#\n", content.c_str());
 }
 
+void test_escape() {
+    std::string page = "<html><div><span id=\"that's\">1\n</span>2\n</div></html>";
+    CDocument doc;
+    doc.parse(page.c_str());
+    CNode pNode = doc.find("span[id=\"that's\"]").nodeAt(0);
+    std::string content = page.substr(pNode.startPos(), pNode.endPos() - pNode.startPos());
+    printf("Node: #%s#\n", content.c_str());
+}
+
 int main() {
 	test_parser();
 	test_html();
+    test_escape();
 }
