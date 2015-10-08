@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B21A15C1AC6C1B300F8863F /* libgumbo.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B21A15B1AC6C1B300F8863F /* libgumbo.1.dylib */; };
 		0B42B99C1AC6B9C4009A55BA /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B42B9541AC6B77D009A55BA /* Document.cpp */; };
 		0B42B99D1AC6B9C4009A55BA /* Document.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B42B9551AC6B77D009A55BA /* Document.h */; };
 		0B42B99E1AC6B9C4009A55BA /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B42B9561AC6B77D009A55BA /* Node.cpp */; };
@@ -22,12 +21,42 @@
 		0B42B9A71AC6B9C4009A55BA /* Selection.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B42B95F1AC6B77D009A55BA /* Selection.h */; };
 		0B42B9A81AC6B9C4009A55BA /* Selector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B42B9601AC6B77D009A55BA /* Selector.cpp */; };
 		0B42B9A91AC6B9C4009A55BA /* Selector.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B42B9611AC6B77D009A55BA /* Selector.h */; };
+		2216C4931B257B2300429910 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2216C47F1B257AA200429910 /* main.cpp */; };
+		2216C4981B257CF300429910 /* libgumbo.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2216C4971B257CF300429910 /* libgumbo.1.dylib */; };
+		2216C49D1B257D9400429910 /* libgumbo.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2216C4971B257CF300429910 /* libgumbo.1.dylib */; };
+		2216C49E1B257D9A00429910 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B42B9541AC6B77D009A55BA /* Document.cpp */; };
+		2216C49F1B257D9E00429910 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B42B9561AC6B77D009A55BA /* Node.cpp */; };
+		2216C4A01B257DA100429910 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B42B9581AC6B77D009A55BA /* Object.cpp */; };
+		2216C4A11B257DA400429910 /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B42B95A1AC6B77D009A55BA /* Parser.cpp */; };
+		2216C4A21B257DA700429910 /* QueryUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B42B95C1AC6B77D009A55BA /* QueryUtil.cpp */; };
+		2216C4A31B257DAB00429910 /* Selection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B42B95E1AC6B77D009A55BA /* Selection.cpp */; };
+		2216C4A41B257DAE00429910 /* Selector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B42B9601AC6B77D009A55BA /* Selector.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2216C49A1B257D6A00429910 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0B42B9411AC6B5EF009A55BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B42B9901AC6B9A3009A55BA;
+			remoteInfo = "gumbo-query";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2216C4831B257AF600429910 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0B21A1571AC6BB2800F8863F /* xcode_build_doxyfile.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = xcode_build_doxyfile.sh; sourceTree = SOURCE_ROOT; };
-		0B21A1591AC6BB8100F8863F /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		0B21A15B1AC6C1B300F8863F /* libgumbo.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgumbo.1.dylib; path = ../../../../../../usr/local/lib/libgumbo.1.dylib; sourceTree = "<group>"; };
 		0B42B9541AC6B77D009A55BA /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = ../src/Document.cpp; sourceTree = "<group>"; };
 		0B42B9551AC6B77D009A55BA /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Document.h; path = ../src/Document.h; sourceTree = "<group>"; };
 		0B42B9561AC6B77D009A55BA /* Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = ../src/Node.cpp; sourceTree = "<group>"; };
@@ -42,8 +71,10 @@
 		0B42B95F1AC6B77D009A55BA /* Selection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Selection.h; path = ../src/Selection.h; sourceTree = "<group>"; };
 		0B42B9601AC6B77D009A55BA /* Selector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Selector.cpp; path = ../src/Selector.cpp; sourceTree = "<group>"; };
 		0B42B9611AC6B77D009A55BA /* Selector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Selector.h; path = ../src/Selector.h; sourceTree = "<group>"; };
-		0B42B96A1AC6B7A3009A55BA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		0B42B9911AC6B9A3009A55BA /* libgumbo-query.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libgumbo-query.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2216C47F1B257AA200429910 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../example/main.cpp; sourceTree = "<group>"; };
+		2216C4851B257AF600429910 /* example */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = example; sourceTree = BUILT_PRODUCTS_DIR; };
+		2216C4971B257CF300429910 /* libgumbo.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgumbo.1.dylib; path = ../../../../../usr/local/lib/libgumbo.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +82,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B21A15C1AC6C1B300F8863F /* libgumbo.1.dylib in Frameworks */,
+				2216C4981B257CF300429910 /* libgumbo.1.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2216C4821B257AF600429910 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2216C49D1B257D9400429910 /* libgumbo.1.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +100,7 @@
 		0B42B9401AC6B5EF009A55BA = {
 			isa = PBXGroup;
 			children = (
-				0B21A15B1AC6C1B300F8863F /* libgumbo.1.dylib */,
+				2216C4971B257CF300429910 /* libgumbo.1.dylib */,
 				0B21A1571AC6BB2800F8863F /* xcode_build_doxyfile.sh */,
 				0B42B9691AC6B794009A55BA /* examples */,
 				0B42B9531AC6B602009A55BA /* src */,
@@ -73,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				0B42B9911AC6B9A3009A55BA /* libgumbo-query.dylib */,
+				2216C4851B257AF600429910 /* example */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,8 +141,7 @@
 		0B42B9691AC6B794009A55BA /* examples */ = {
 			isa = PBXGroup;
 			children = (
-				0B21A1591AC6BB8100F8863F /* Makefile */,
-				0B42B96A1AC6B7A3009A55BA /* main.cpp */,
+				2216C47F1B257AA200429910 /* main.cpp */,
 			);
 			name = examples;
 			path = ../examples;
@@ -135,7 +174,6 @@
 				0B42B98D1AC6B9A3009A55BA /* Sources */,
 				0B42B98E1AC6B9A3009A55BA /* Frameworks */,
 				0B42B98F1AC6B9A3009A55BA /* Headers */,
-				0B16BCE11AC6C32800610972 /* Build Doxygen */,
 			);
 			buildRules = (
 			);
@@ -145,6 +183,24 @@
 			productName = "gumbo-query";
 			productReference = 0B42B9911AC6B9A3009A55BA /* libgumbo-query.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
+		};
+		2216C4841B257AF600429910 /* example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2216C4891B257AF600429910 /* Build configuration list for PBXNativeTarget "example" */;
+			buildPhases = (
+				2216C4811B257AF600429910 /* Sources */,
+				2216C4821B257AF600429910 /* Frameworks */,
+				2216C4831B257AF600429910 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2216C49B1B257D6A00429910 /* PBXTargetDependency */,
+			);
+			name = example;
+			productName = example;
+			productReference = 2216C4851B257AF600429910 /* example */;
+			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
@@ -157,6 +213,9 @@
 				TargetAttributes = {
 					0B42B9901AC6B9A3009A55BA = {
 						CreatedOnToolsVersion = 6.2;
+					};
+					2216C4841B257AF600429910 = {
+						CreatedOnToolsVersion = 6.3.1;
 					};
 				};
 			};
@@ -173,26 +232,10 @@
 			projectRoot = "";
 			targets = (
 				0B42B9901AC6B9A3009A55BA /* gumbo-query */,
+				2216C4841B257AF600429910 /* example */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0B16BCE11AC6C32800610972 /* Build Doxygen */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Build Doxygen";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = $SOURCE_ROOT/xcode_build_doxyfile.sh;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0B42B98D1AC6B9A3009A55BA /* Sources */ = {
@@ -209,7 +252,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2216C4811B257AF600429910 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2216C49F1B257D9E00429910 /* Node.cpp in Sources */,
+				2216C49E1B257D9A00429910 /* Document.cpp in Sources */,
+				2216C4A21B257DA700429910 /* QueryUtil.cpp in Sources */,
+				2216C4A01B257DA100429910 /* Object.cpp in Sources */,
+				2216C4A31B257DAB00429910 /* Selection.cpp in Sources */,
+				2216C4A11B257DA400429910 /* Parser.cpp in Sources */,
+				2216C4A41B257DAE00429910 /* Selector.cpp in Sources */,
+				2216C4931B257B2300429910 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2216C49B1B257D6A00429910 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0B42B9901AC6B9A3009A55BA /* gumbo-query */;
+			targetProxy = 2216C49A1B257D6A00429910 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0B42B94E1AC6B5EF009A55BA /* Debug */ = {
@@ -328,6 +394,34 @@
 			};
 			name = Release;
 		};
+		2216C48A1B257AF600429910 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include,
+					../src,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		2216C48B1B257AF600429910 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_NO_COMMON_BLOCKS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -348,6 +442,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		2216C4891B257AF600429910 /* Build configuration list for PBXNativeTarget "example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2216C48A1B257AF600429910 /* Debug */,
+				2216C48B1B257AF600429910 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
