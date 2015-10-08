@@ -23,7 +23,7 @@ find_path(Gumbo_INCLUDE_DIR
 
 # Finally the library itself
 find_library(Gumbo_LIBRARY
-  NAMES libgumbo.dylib libgumbo.dll gumbo.dylib gumbo.dll
+  NAMES libgumbo.dylib libgumbo.dll gumbo.dylib gumbo.dll libgumbo.so
   PATHS ${Gumbo_PKGCONF_LIBRARY_DIRS}
 )
 
