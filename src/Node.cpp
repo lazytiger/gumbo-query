@@ -120,8 +120,33 @@ size_t CNode::endPos()
 		  return mpNode->v.text.original_text.length + startPos();
 	  default:
 		  return 0;
-  }
+	}
+}
 
+size_t CNode::startPosOuter()
+{
+	switch(mpNode->type)
+	{
+	case GUMBO_NODE_ELEMENT:
+		return mpNode->v.element.start_pos.offset;
+	case GUMBO_NODE_TEXT:
+		return mpNode->v.text.start_pos.offset;
+	default:
+		return 0;
+	}
+}
+
+size_t CNode::endPosOuter()
+{
+	switch(mpNode->type)
+	{
+	case GUMBO_NODE_ELEMENT:
+		return mpNode->v.element.end_pos.offset + mpNode->v.element.original_end_tag.length;
+	case GUMBO_NODE_TEXT:
+		return mpNode->v.text.original_text.length + startPos();
+	default:
+		return 0;
+	}
 }
 
 std::string CNode::tag()

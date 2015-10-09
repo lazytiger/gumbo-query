@@ -53,6 +53,10 @@ class CNode
 
 		size_t endPos();
 
+		size_t startPosOuter();
+
+		size_t endPosOuter();
+
 		std::string tag();
 
 		CSelection find(std::string aSelector);
