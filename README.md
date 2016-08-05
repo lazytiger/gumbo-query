@@ -12,7 +12,7 @@ $ brew install gumbo-query
 ```
 Through git:
 ```bash
-$ git clone https://github.com/Falven/gumbo-query
+$ git clone https://github.com/lazytiger/gumbo-query
 $ cd gumbo-query/build && cmake .. && make && make test
 $ sudo make install
 ```
