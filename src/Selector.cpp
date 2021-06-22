@@ -239,10 +239,11 @@ bool CBinarySelector::match(GumboNode* apNode)
 			GumboNode* parent = apNode->parent;
 			if (mAdjacent)
 			{
-				for (long i = pos; i >= 0; i--)
+				for (long i = pos - 1; i >= 0; i--)
 				{
 					GumboNode* sibling = (GumboNode*) parent->v.element.children.data[i];
-					if (sibling->type == GUMBO_NODE_TEXT || sibling->type == GUMBO_NODE_COMMENT)
+					if (sibling->type == GUMBO_NODE_TEXT || sibling->type == GUMBO_NODE_COMMENT || 
+					    sibling->type == GUMBO_NODE_WHITESPACE)
 					{
 						continue;
 					}
